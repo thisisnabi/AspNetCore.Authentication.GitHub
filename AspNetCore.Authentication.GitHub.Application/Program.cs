@@ -15,6 +15,10 @@ builder.Services.AddAuthentication(options =>
     options.ClientId = "";
     options.ClientSecret = "";
     options.SignInScheme = IdentityConstants.ExternalScheme;
+
+    options.ReturnUrlParameter = "/dashboard";
+    options.Scope.Add("user:email");
+    options.Scope.Add("user:follow");
 });
 
 builder.Services.AddAuthorization(p => {
@@ -29,9 +33,9 @@ app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();
 
-app.MapGet("/protected", () =>
+app.MapGet("/protected", (HttpContext httpContext) =>
 {
-    return "protected";
+    return httpContext.User.Claims.Select(d => new { d.Type, d.Value }).ToList();
 }).RequireAuthorization("nabi");
 
 
