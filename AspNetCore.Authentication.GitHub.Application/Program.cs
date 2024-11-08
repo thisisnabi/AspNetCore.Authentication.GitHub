@@ -12,8 +12,8 @@ builder.Services.AddAuthentication(options =>
 .AddGitHub(options =>
 {
     options.SaveTokens = true;
-    options.ClientId = "Ov23liXWL6NU0foVBAzx";
-    options.ClientSecret = "91883923537e1c9097da61599e2e1f17e591e60f";
+    options.ClientId = "client_id";
+    options.ClientSecret = "secret";
     options.SignInScheme = IdentityConstants.ExternalScheme;
 
     options.Scope.Add("user:email");
